@@ -1,4 +1,4 @@
-import {linkArrays} from "./link-array";
+import {linkArrays} from './link-arrays';
 
 (function test() {
 })();

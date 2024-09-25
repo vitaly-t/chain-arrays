@@ -5,6 +5,9 @@ export function linkArrays<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, c: Arra
 export function linkArrays<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): Iterable<A | B | C | D | E>;
 export function linkArrays<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): Iterable<A | B | C | D | E | F>;
 export function linkArrays<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): Iterable<A | B | C | D | E | F | G>;
+export function linkArrays<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): Iterable<A | B | C | D | E | F | G | H>;
+export function linkArrays<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): Iterable<A | B | C | D | E | F | G | H | I>;
+export function linkArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): Iterable<A | B | C | D | E | F | G | H | I | J>;
 
 export function linkArrays<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
     return {
@@ -33,6 +36,9 @@ export function linkArraysReverse<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, 
 export function linkArraysReverse<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): Iterable<A | B | C | D | E>;
 export function linkArraysReverse<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): Iterable<A | B | C | D | E | F>;
 export function linkArraysReverse<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): Iterable<A | B | C | D | E | F | G>;
+export function linkArraysReverse<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): Iterable<A | B | C | D | E | F | G | H>;
+export function linkArraysReverse<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): Iterable<A | B | C | D | E | F | G | H | I>;
+export function linkArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): Iterable<A | B | C | D | E | F | G | H | I | J>;
 
 export function linkArraysReverse<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
     return {
@@ -47,3 +53,5 @@ export function linkArraysReverse<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
         }
     }
 }
+
+const r = linkArrays([1], [2, true], [3, 'hi']);
