@@ -1,0 +1,17 @@
+{
+  "name": "link-array",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "tsc && node ./src/test.js"
+  },
+  "keywords": [
+    "link",
+    "array",
+    "concat",
+    "logical"
+  ],
+  "devDependencies": {
+    "@types/node": "22.2.0",
+    "typescript": "5.5.4"
+  }
+}
