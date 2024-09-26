@@ -1,15 +1,15 @@
-# link-arrays
+# chain-arrays
 
 Optimized logical arrays concatenation in TypeScript, for copy-n-paste (no library).
 
-Just copy [link-arrays.ts](./src/link-arrays.ts) (or [link-arrays.js](./src/link-arrays.js)) file into your project, and you're good to go 🚀
+Just copy [chain-arrays.ts](./src/chain-arrays.ts) (or [chain-arrays.js](./src/chain-arrays.js)) file into your project, and you're good to go 🚀
 
-Functions `linkArrays` and `linkArraysReverse` there are self-explanatory 😉
+Functions `chainArrays` and `chainArraysReverse` there are self-explanatory 😉
 
 ```js
-linkArrays(array1, array2, ...arrayN) => Array
+chainArrays(array1, array2, ...arrayN) => Array
 
-linkArraysReverse(array1, array2, ...arrayN) => Array
+chainArraysReverse(array1, array2, ...arrayN) => Array
 ```
 
 To run [./src/test.ts](./src/test.ts), install dependencies via `npm i`, and then do `npm test`.

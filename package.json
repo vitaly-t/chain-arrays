@@ -1,12 +1,13 @@
 {
-  "name": "link-arrays",
+  "name": "chain-arrays",
+  "description": "Logical concatenation of arrays",
   "version": "1.0.0",
   "scripts": {
     "test": "tsc && node ./src/test.js"
   },
   "keywords": [
-    "link",
     "array",
+    "chain",
     "concat",
     "logical"
   ],
