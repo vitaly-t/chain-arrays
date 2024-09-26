@@ -1,7 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.chainArrays = chainArrays;
-exports.chainArraysReverse = chainArraysReverse;
 /**
  * Logically concatenates arrays (chains them), into an iterable.
  */
