@@ -1,3 +1,4 @@
+export function linkArrays(): Iterable<unknown>;
 export function linkArrays<A>(a: ArrayLike<A>): Iterable<A>;
 export function linkArrays<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): Iterable<A | B>;
 export function linkArrays<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): Iterable<A | B | C>;
@@ -32,6 +33,7 @@ export function linkArrays<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
     }
 }
 
+export function linkArraysReverse(): Iterable<unknown>;
 export function linkArraysReverse<A>(a: ArrayLike<A>): Iterable<A>;
 export function linkArraysReverse<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): Iterable<A | B>;
 export function linkArraysReverse<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): Iterable<A | B | C>;
