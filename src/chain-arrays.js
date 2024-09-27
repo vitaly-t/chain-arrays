@@ -1,6 +1,6 @@
 /**
  * Logically concatenates arrays (chains them), into an iterable,
- * which also has total "length" and from-index "at" accessor.
+ * which also has total "length" and "at" accessor from index.
  */
 function chainArrays(...arr) {
     const length = arr.reduce((c, r) => c + r.length, 0);
@@ -35,20 +35,19 @@ function chainArrays(...arr) {
 
 /**
  * Logically concatenates arrays (chains them), into a reversed iterable,
- * which also has total "length" and from-index "at" accessor.
+ * which also has total "length" and "at" accessor from reversed index.
  */
 function chainArraysReverse(...arr) {
     const length = arr.reduce((c, r) => c + r.length, 0);
     return {
         length,
         at(i) {
-            // TODO: This must reverse the index logic!
             if (i < length) {
-                let s = 0, k = 0;
+                let s = 0, k = arr.length - 1;
                 while (s + arr[k].length <= i) {
-                    s += arr[k++].length;
+                    s += arr[k--].length;
                 }
-                return arr[k][i - s];
+                return arr[k][s - i + 1];
             }
         },
         [Symbol.iterator]() {

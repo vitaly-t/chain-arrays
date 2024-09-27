@@ -1,7 +1,7 @@
 import {chainArrays, chainArraysReverse} from './chain-arrays';
 
 const a = [1, 2];
-const b: number[] = [3, 4];
+const b = [3, 4];
 const c = [5, 6];
 
 for (const val of chainArrays(a, b, c)) {

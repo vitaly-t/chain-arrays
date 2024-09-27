@@ -16,13 +16,13 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
 
 /**
  * Logically concatenates arrays (chains them), into an iterable,
- * which also has total "length" and from-index "at" accessor.
+ * which also has total "length" and "at" accessor from index.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     const length = arr.reduce((c, r) => c + r.length, 0);
     return {
         length,
-        at(i: number) {
+        at(i: number): T | undefined {
             if (i < length) {
                 let s = 0, k = 0;
                 while (s + arr[k].length <= i) {
@@ -63,20 +63,19 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
 
 /**
  * Logically concatenates arrays (chains them), into a reversed iterable,
- * which also has total "length" and from-index "at" accessor.
+ * which also has total "length" and "at" accessor from reversed index.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     const length = arr.reduce((c, r) => c + r.length, 0);
     return {
         length,
-        at(i: number) {
-            // TODO: This must reverse the index logic!
+        at(i: number): T | undefined {
             if (i < length) {
-                let s = 0, k = 0;
+                let s = 0, k = arr.length - 1;
                 while (s + arr[k].length <= i) {
-                    s += arr[k++].length;
+                    s += arr[k--].length;
                 }
-                return arr[k][i - s];
+                return arr[k][s - i + 1];
             }
         },
         [Symbol.iterator](): Iterator<T> {
