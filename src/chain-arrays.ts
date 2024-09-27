@@ -1,20 +1,36 @@
-export function chainArrays(): Iterable<unknown>;
-export function chainArrays<A>(a: ArrayLike<A>): Iterable<A>;
-export function chainArrays<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): Iterable<A | B>;
-export function chainArrays<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): Iterable<A | B | C>;
-export function chainArrays<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>): Iterable<A | B | C | D>;
-export function chainArrays<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): Iterable<A | B | C | D | E>;
-export function chainArrays<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): Iterable<A | B | C | D | E | F>;
-export function chainArrays<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): Iterable<A | B | C | D | E | F | G>;
-export function chainArrays<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): Iterable<A | B | C | D | E | F | G | H>;
-export function chainArrays<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): Iterable<A | B | C | D | E | F | G | H | I>;
-export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): Iterable<A | B | C | D | E | F | G | H | I | J>;
+export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
+    readonly length: number;
+}
+
+export function chainArrays(): IArraysChain<unknown>;
+export function chainArrays<A>(a: ArrayLike<A>): IArraysChain<A>;
+export function chainArrays<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): IArraysChain<A | B>;
+export function chainArrays<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): IArraysChain<A | B | C>;
+export function chainArrays<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>): IArraysChain<A | B | C | D>;
+export function chainArrays<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): IArraysChain<A | B | C | D | E>;
+export function chainArrays<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): IArraysChain<A | B | C | D | E | F>;
+export function chainArrays<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): IArraysChain<A | B | C | D | E | F | G>;
+export function chainArrays<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): IArraysChain<A | B | C | D | E | F | G | H>;
+export function chainArrays<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): IArraysChain<A | B | C | D | E | F | G | H | I>;
+export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into an iterable.
+ * Logically concatenates arrays (chains them), into an iterable,
+ * which also has total "length" and from-index "at" accessor.
  */
-export function chainArrays<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
+export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
+    const length = arr.reduce((c, r) => c + r.length, 0);
     return {
+        length,
+        at(i: number) {
+            if (i < length) {
+                let s = 0, k = 0;
+                while (s + arr[k].length <= i) {
+                    s += arr[k++].length;
+                }
+                return arr[k][i - s];
+            }
+        },
         [Symbol.iterator](): Iterator<T> {
             let i = 0, k = -1, a: ArrayLike<T> = [];
             return {
@@ -33,23 +49,36 @@ export function chainArrays<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
     }
 }
 
-export function chainArraysReverse(): Iterable<unknown>;
-export function chainArraysReverse<A>(a: ArrayLike<A>): Iterable<A>;
-export function chainArraysReverse<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): Iterable<A | B>;
-export function chainArraysReverse<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): Iterable<A | B | C>;
-export function chainArraysReverse<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>): Iterable<A | B | C | D>;
-export function chainArraysReverse<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): Iterable<A | B | C | D | E>;
-export function chainArraysReverse<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): Iterable<A | B | C | D | E | F>;
-export function chainArraysReverse<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): Iterable<A | B | C | D | E | F | G>;
-export function chainArraysReverse<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): Iterable<A | B | C | D | E | F | G | H>;
-export function chainArraysReverse<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): Iterable<A | B | C | D | E | F | G | H | I>;
-export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): Iterable<A | B | C | D | E | F | G | H | I | J>;
+export function chainArraysReverse(): IArraysChain<unknown>;
+export function chainArraysReverse<A>(a: ArrayLike<A>): IArraysChain<A>;
+export function chainArraysReverse<A, B>(a: ArrayLike<A>, b: ArrayLike<B>): IArraysChain<A | B>;
+export function chainArraysReverse<A, B, C>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>): IArraysChain<A | B | C>;
+export function chainArraysReverse<A, B, C, D>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>): IArraysChain<A | B | C | D>;
+export function chainArraysReverse<A, B, C, D, E>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>): IArraysChain<A | B | C | D | E>;
+export function chainArraysReverse<A, B, C, D, E, F>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>): IArraysChain<A | B | C | D | E | F>;
+export function chainArraysReverse<A, B, C, D, E, F, G>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>): IArraysChain<A | B | C | D | E | F | G>;
+export function chainArraysReverse<A, B, C, D, E, F, G, H>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>): IArraysChain<A | B | C | D | E | F | G | H>;
+export function chainArraysReverse<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>): IArraysChain<A | B | C | D | E | F | G | H | I>;
+export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into a reversed iterable.
+ * Logically concatenates arrays (chains them), into a reversed iterable,
+ * which also has total "length" and from-index "at" accessor.
  */
-export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): Iterable<T> {
+export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
+    const length = arr.reduce((c, r) => c + r.length, 0);
     return {
+        length,
+        at(i: number) {
+            // TODO: This must reverse the index logic!
+            if (i < length) {
+                let s = 0, k = 0;
+                while (s + arr[k].length <= i) {
+                    s += arr[k++].length;
+                }
+                return arr[k][i - s];
+            }
+        },
         [Symbol.iterator](): Iterator<T> {
             let i = -1, k = arr.length, a: ArrayLike<T>;
             return {
