@@ -6,10 +6,4 @@ Just copy [chain-arrays.ts](./src/chain-arrays.ts) (or [chain-arrays.js](./src/c
 
 Functions `chainArrays` and `chainArraysReverse` there are self-explanatory 😉
 
-```js
-chainArrays(array1, array2, ...arrayN) => Array
-
-chainArraysReverse(array1, array2, ...arrayN) => Array
-```
-
 To run [./src/test.ts](./src/test.ts), install dependencies via `npm i`, and then do `npm test`.
