@@ -1,3 +1,6 @@
+/**
+ * Iterable arrays chain, extended for "length" and "at" accessor.
+ */
 export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
     readonly length: number;
 }
@@ -16,7 +19,7 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
 
 /**
  * Logically concatenates arrays (chains them), into an iterable,
- * which also has total "length" and "at" accessor from index.
+ * extended for the total "length" and "at" accessor from index.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     const length = arr.reduce((c, r) => c + r.length, 0);
@@ -63,7 +66,7 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
 
 /**
  * Logically concatenates arrays (chains them), into a reversed iterable,
- * which also has total "length" and "at" accessor from reversed index.
+ * extended for the total "length" and "at" accessor from reversed index.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     const length = arr.reduce((c, r) => c + r.length, 0);
