@@ -55,7 +55,8 @@ console.log(`${Date.now() - start}ms`); //=> ~100ms
 ```
 
 Above, we iterate over 5 arrays, with 10 mln elements each, within 100ms.
-For comparison, using the spread operator for the same:
+
+For comparison, using the spread syntax for the same:
 
 ```ts
 let sum = 0;
