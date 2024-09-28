@@ -31,7 +31,7 @@ for (const value of chainArraysReverse(a, b, c)) {
 }
 ```
 
-How good is performance of such logical iteration? Here's a simple test:
+## Performance
 
 ```ts
 import {chainArrays} from './chain-arrays';
@@ -66,7 +66,7 @@ for (const i of [...a, ...b, ...c, ...d, ...e]) {
 console.log(`${Date.now() - start}ms`); //=> ~1175ms
 ```
 
-That took 11.7 times longer, while also consuming tremendously more memory.
+That took 11.75 times longer, while also consuming tremendously more memory.
 
 The same iteration via index is roughly 2 times slower, as it needs to calculate the source array index every time you use `at` function:
 
