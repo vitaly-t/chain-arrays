@@ -3,7 +3,7 @@
  * extended for the total "length" and "at" accessor from index.
  */
 function chainArrays(...arr) {
-    const length = arr.reduce((c, r) => c + r.length, 0);
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
         length,
         at(i) {
@@ -38,7 +38,7 @@ function chainArrays(...arr) {
  * extended for the total "length" and "at" accessor from reversed index.
  */
 function chainArraysReverse(...arr) {
-    const length = arr.reduce((c, r) => c + r.length, 0);
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
         length,
         at(i) {

@@ -22,7 +22,7 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
  * extended for the total "length" and "at" accessor from index.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((c, r) => c + r.length, 0);
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
         length,
         at(i: number): T | undefined {
@@ -69,7 +69,7 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
  * extended for the total "length" and "at" accessor from reversed index.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((c, r) => c + r.length, 0);
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
         length,
         at(i: number): T | undefined {
