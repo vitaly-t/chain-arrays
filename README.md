@@ -1,6 +1,6 @@
 # chain-arrays
 
-Optimized logical arrays concatenation in TypeScript, for copy-n-paste (no library).
+Logical concatenation for large arrays, in TypeScript (copy-n-paste / no library).
 
 Just copy [chain-arrays.ts](./src/chain-arrays.ts) (or [chain-arrays.js](./src/chain-arrays.js)) file into your project, and you're good to go 🚀
 
