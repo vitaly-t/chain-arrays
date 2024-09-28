@@ -3,7 +3,8 @@
   "description": "Logical concatenation of arrays",
   "version": "1.0.0",
   "scripts": {
-    "test": "tsc && node ./src/test.js"
+    "test": "tsc && node ./src/test.js",
+    "perform": "tsc && node ./src/performance.js"
   },
   "keywords": [
     "array",
