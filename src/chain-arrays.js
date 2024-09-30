@@ -7,12 +7,11 @@ function chainArrays(...arr) {
     return {
         length,
         at(i) {
-            if (i < length) {
-                let s = 0, k = 0;
-                while (s + arr[k].length <= i) {
-                    s += arr[k++].length;
+            for (let j = 0; j < arr.length; j++) {
+                if (i < arr[j].length) {
+                    return arr[j][i];
                 }
-                return arr[k][i - s];
+                i -= arr[j].length;
             }
         },
         [Symbol.iterator]() {
