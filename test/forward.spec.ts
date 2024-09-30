@@ -14,7 +14,7 @@ describe('forward', () => {
             expect([...chainArrays([], [3, 4], [])]).to.eql([3, 4]);
             expect([...chainArrays([1, 2], [], [5, 6])]).to.eql([1, 2, 5, 6]);
             expect([...chainArrays([], [], [])]).to.eql([]);
-        })
+        });
     });
     describe('at', () => {
         it('must handle all indexes', () => {
@@ -34,6 +34,12 @@ describe('forward', () => {
             const c = chainArrays([1, 2]);
             expect(c.at(-1)).to.be.undefined;
             expect(c.at(2)).to.be.undefined;
+        });
+    });
+    describe('length', () => {
+        it('must reflect the actual total length', () => {
+            const c = chainArrays([1, 2], [3, 4], [5, 6]);
+            expect(c.length).to.eq(6);
         });
     });
 });

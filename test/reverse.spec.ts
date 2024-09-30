@@ -36,4 +36,10 @@ describe('reverse', () => {
             expect(c.at(2)).to.be.undefined;
         });
     });
+    describe('length', () => {
+        it('must reflect the actual total length', () => {
+            const c = chainArraysReverse([1, 2], [3, 4], [5, 6]);
+            expect(c.length).to.eq(6);
+        });
+    });
 });
