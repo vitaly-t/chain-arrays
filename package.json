@@ -3,7 +3,8 @@
   "description": "Logical concatenation of arrays",
   "version": "1.0.0",
   "scripts": {
-    "test": "tsc && node ./src/test.js",
+    "test": "mocha --timeout 10000 --import=tsx test/**/*.spec.ts --exit",
+    "sample": "tsc && node ./src/sample.js",
     "perform": "tsc && node ./src/performance.js"
   },
   "keywords": [
@@ -13,7 +14,12 @@
     "logical"
   ],
   "devDependencies": {
+    "@types/chai": "5.0.0",
+    "@types/mocha": "10.0.8",
     "@types/node": "22.7.4",
+    "chai": "5.1.1",
+    "mocha": "10.7.3",
+    "tsx": "4.19.1",
     "typescript": "5.6.2"
   }
 }
