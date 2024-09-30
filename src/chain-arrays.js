@@ -41,12 +41,11 @@ function chainArraysReverse(...arr) {
     return {
         length,
         at(i) {
-            if (i < length) {
-                let s = 0, k = arr.length - 1;
-                while (s + arr[k].length <= i) {
-                    s += arr[k--].length;
+            for (let j = arr.length - 1; j >= 0; j--) {
+                if (i < arr[j].length) {
+                    return arr[j][arr[j].length - (i + 1)];
                 }
-                return arr[k][s - i + 1];
+                i -= arr[j].length;
             }
         },
         [Symbol.iterator]() {

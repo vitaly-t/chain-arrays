@@ -28,10 +28,10 @@ export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
         at(i: number): T | undefined {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
-                  return arr[j][i];
+                    return arr[j][i];
                 }
                 i -= arr[j].length;
-              }
+            }
         },
         [Symbol.iterator](): Iterator<T> {
             let i = 0, k = -1, a: ArrayLike<T> = [];
@@ -72,12 +72,11 @@ export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain
     return {
         length,
         at(i: number): T | undefined {
-            if (i < length) {
-                let s = 0, k = arr.length - 1;
-                while (s + arr[k].length <= i) {
-                    s += arr[k--].length;
+            for (let j = arr.length - 1; j >= 0; j--) {
+                if (i < arr[j].length) {
+                    return arr[j][arr[j].length - (i + 1)];
                 }
-                return arr[k][s - i + 1];
+                i -= arr[j].length;
             }
         },
         [Symbol.iterator](): Iterator<T> {
