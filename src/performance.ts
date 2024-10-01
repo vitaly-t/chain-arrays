@@ -8,11 +8,21 @@ const c = Array<number>(r).fill(3);
 const d = Array<number>(r).fill(4);
 const e = Array<number>(r).fill(5);
 
-const start = Date.now();
+let start = Date.now();
 
 let sum = 0;
 for (const i of chainArrays(a, b, c, d, e)) {
     sum += i;
 }
 
-console.log(`${Date.now() - start}ms`); //=> ~100ms
+console.log(`Iteration: ${Date.now() - start}ms`); //=> ~100ms
+
+sum = 0;
+const chain = chainArrays(a, b, c, d, e);
+start = Date.now();
+
+for (let i = 0; i < chain.length; i++) {
+    sum += chain.at(i)!;
+}
+
+console.log(`Using "at": ${Date.now() - start}ms`); //=> ~100ms
