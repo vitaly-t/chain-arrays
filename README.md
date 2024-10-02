@@ -13,7 +13,7 @@ Functions `chainArrays` and `chainArraysReverse` there are self-explanatory 😉
 ## Rationale
 
 When dealing with large arrays (10^6 > elements), concatenating them can be very memory-consuming.
-This solution joins arrays logically, turning a list of arrays into an iterable, with additional `length` and `at` access.
+This solution joins arrays logically, turning a list of arrays into an `Iterable`, plus `getLength` and `at` functions.
 
 ```ts
 import {chainArrays, chainArraysReverse} from './chain-arrays';
