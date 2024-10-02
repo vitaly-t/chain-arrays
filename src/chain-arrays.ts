@@ -33,13 +33,15 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
  * and you're explicitly using "length", then just call "refresh()".
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    let length = 0;
+    let len = 0;
     const refresh = () => {
-        length = arr.reduce((a, c) => a + c.length, 0);
+        len = arr.reduce((a, c) => a + c.length, 0);
     };
     refresh();
     return {
-        length,
+        get length() {
+            return len;
+        },
         refresh,
         at(i: number): T | undefined {
             for (let j = 0; j < arr.length; j++) {
@@ -87,13 +89,15 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
  * and you're explicitly using "length", then just call "refresh()".
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    let length = 0;
+    let len = 0;
     const refresh = () => {
-        length = arr.reduce((a, c) => a + c.length, 0);
+        len = arr.reduce((a, c) => a + c.length, 0);
     };
     refresh();
     return {
-        length,
+        get length() {
+            return len;
+        },
         refresh,
         at(i: number): T | undefined {
             for (let j = arr.length - 1; j >= 0; j--) {

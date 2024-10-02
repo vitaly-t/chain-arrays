@@ -6,13 +6,15 @@
  * and you're explicitly using "length", then just call "refresh()".
  */
 function chainArrays(...arr) {
-    let length = 0;
+    let len = 0;
     const refresh = () => {
-        length = arr.reduce((a, c) => a + c.length, 0);
+        len = arr.reduce((a, c) => a + c.length, 0);
     };
     refresh();
     return {
-        length,
+        get length() {
+            return len;
+        },
         refresh,
         at(i) {
             for (let j = 0; j < arr.length; j++) {
@@ -48,13 +50,15 @@ function chainArrays(...arr) {
  * and you're explicitly using "length", then just call "refresh()".
  */
 function chainArraysReverse(...arr) {
-    let length = 0;
+    let len = 0;
     const refresh = () => {
-        length = arr.reduce((a, c) => a + c.length, 0);
+        len = arr.reduce((a, c) => a + c.length, 0);
     };
     refresh();
     return {
-        length,
+        get length() {
+            return len;
+        },
         refresh,
         at(i) {
             for (let j = arr.length - 1; j >= 0; j--) {
