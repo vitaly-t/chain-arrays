@@ -2,7 +2,15 @@
  * Iterable arrays chain, extended for "length" and "at" accessor.
  */
 export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
+    /**
+     * Total length of all input arrays combined.
+     */
     readonly length: number;
+
+    /**
+     * Refreshes "length", in case one of the source arrays changes its length.
+     */
+    refresh(): void;
 }
 
 export function chainArrays(): IArraysChain<unknown>;
@@ -20,11 +28,19 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
 /**
  * Logically concatenates arrays (chains them), into an iterable,
  * extended for the total "length" and "at" accessor from index.
+ *
+ * NOTE: "length" value is cached, so if a source array changes length,
+ * and you're explicitly using "length", then just call "refresh()".
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((a, c) => a + c.length, 0);
+    let length = 0;
+    const refresh = () => {
+        length = arr.reduce((a, c) => a + c.length, 0);
+    };
+    refresh();
     return {
         length,
+        refresh,
         at(i: number): T | undefined {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
@@ -44,7 +60,7 @@ export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
                         a = arr[k];
                         i = 0;
                     }
-                    return {value: a[i++], done: false};
+                    return {done: false, value: a[i++]};
                 }
             };
         }
@@ -66,11 +82,19 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
 /**
  * Logically concatenates arrays (chains them), into a reversed iterable,
  * extended for the total "length" and "at" accessor from reversed index.
+ *
+ * NOTE: "length" value is cached, so if a source array changes length,
+ * and you're explicitly using "length", then just call "refresh()".
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((a, c) => a + c.length, 0);
+    let length = 0;
+    const refresh = () => {
+        length = arr.reduce((a, c) => a + c.length, 0);
+    };
+    refresh();
     return {
         length,
+        refresh,
         at(i: number): T | undefined {
             for (let j = arr.length - 1; j >= 0; j--) {
                 if (i < arr[j].length) {
@@ -90,7 +114,7 @@ export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain
                         a = arr[k];
                         i = a.length - 1;
                     }
-                    return {value: a[i--], done: false};
+                    return {done: false, value: a[i--]};
                 }
             };
         }
