@@ -74,9 +74,10 @@ The same iteration via index is roughly 2 times slower, as it needs to calculate
 ```ts
 let sum = 0;
 const chain = chainArrays(a, b, c, d, e);
-for (let t = 0; t < chain.length; t++) {
+const length = chain.getLength();
+for (let t = 0; t < length; t++) {
     sum += chain.at(t)!;
 }
 
-console.log(`${Date.now() - start}ms`); //=> ~213ms
+console.log(`${Date.now() - start}ms`); //=> ~200ms
 ```
