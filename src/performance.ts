@@ -10,20 +10,20 @@ const e = Array<number>(r).fill(5);
 
 let start = Date.now();
 
-let sum = 0;
+let checkSum = 0;
 for (const i of chainArrays(a, b, c, d, e)) {
-    sum += i;
+    checkSum += i;
 }
 
-console.log(`Iteration: ${Date.now() - start}ms`); //=> ~100ms
+console.log(`Iteration: ${Date.now() - start}ms; check-sum: ${checkSum.toLocaleString()}`); //=> ~100ms
 
-sum = 0;
+checkSum = 0;
 const chain = chainArrays(a, b, c, d, e);
 const length = chain.getLength();
 start = Date.now();
 
 for (let i = 0; i < length; i++) {
-    sum += chain.at(i)!;
+    checkSum += chain.at(i)!;
 }
 
-console.log(`Using "at": ${Date.now() - start}ms`); //=> ~200ms
+console.log(`Using "at": ${Date.now() - start}ms; check-sum: ${checkSum.toLocaleString()}`); //=> ~200ms
