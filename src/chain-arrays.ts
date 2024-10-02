@@ -6,11 +6,6 @@ export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
      * Total length of all input arrays combined.
      */
     readonly length: number;
-
-    /**
-     * Refreshes "length", in case one of the source arrays changes its length.
-     */
-    refresh(): void;
 }
 
 export function chainArrays(): IArraysChain<unknown>;
@@ -30,19 +25,12 @@ export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: Ar
  * extended for the total "length" and "at" accessor from index.
  *
  * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then just call "refresh()".
+ * and you're explicitly using "length", then re-chain the array list.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    let len = 0;
-    const refresh = () => {
-        len = arr.reduce((a, c) => a + c.length, 0);
-    };
-    refresh();
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        get length() {
-            return len;
-        },
-        refresh,
+        length,
         at(i: number): T | undefined {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
@@ -86,19 +74,12 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>
  * extended for the total "length" and "at" accessor from reversed index.
  *
  * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then just call "refresh()".
+ * and you're explicitly using "length", then re-chain the array list.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    let len = 0;
-    const refresh = () => {
-        len = arr.reduce((a, c) => a + c.length, 0);
-    };
-    refresh();
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        get length() {
-            return len;
-        },
-        refresh,
+        length,
         at(i: number): T | undefined {
             for (let j = arr.length - 1; j >= 0; j--) {
                 if (i < arr[j].length) {

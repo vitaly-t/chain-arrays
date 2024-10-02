@@ -3,19 +3,12 @@
  * extended for the total "length" and "at" accessor from index.
  *
  * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then just call "refresh()".
+ * and you're explicitly using "length", then re-chain the array list.
  */
 function chainArrays(...arr) {
-    let len = 0;
-    const refresh = () => {
-        len = arr.reduce((a, c) => a + c.length, 0);
-    };
-    refresh();
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        get length() {
-            return len;
-        },
-        refresh,
+        length,
         at(i) {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
@@ -47,19 +40,12 @@ function chainArrays(...arr) {
  * extended for the total "length" and "at" accessor from reversed index.
  *
  * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then just call "refresh()".
+ * and you're explicitly using "length", then re-chain the array list.
  */
 function chainArraysReverse(...arr) {
-    let len = 0;
-    const refresh = () => {
-        len = arr.reduce((a, c) => a + c.length, 0);
-    };
-    refresh();
+    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        get length() {
-            return len;
-        },
-        refresh,
+        length,
         at(i) {
             for (let j = arr.length - 1; j >= 0; j--) {
                 if (i < arr[j].length) {
