@@ -19,10 +19,11 @@ console.log(`Iteration: ${Date.now() - start}ms`); //=> ~100ms
 
 sum = 0;
 const chain = chainArrays(a, b, c, d, e);
+const length = chain.getLength();
 start = Date.now();
 
-for (let i = 0; i < chain.length; i++) {
+for (let i = 0; i < length; i++) {
     sum += chain.at(i)!;
 }
 
-console.log(`Using "at": ${Date.now() - start}ms`); //=> ~100ms
+console.log(`Using "at": ${Date.now() - start}ms`); //=> ~200ms

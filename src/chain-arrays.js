@@ -1,14 +1,11 @@
 /**
- * Logically concatenates arrays (chains them), into an iterable,
- * extended for the total "length" and "at" accessor from index.
- *
- * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then re-chain the array list.
+ * Logically concatenates arrays (chains them), into an iterable.
  */
 function chainArrays(...arr) {
-    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        length,
+        getLength() {
+            return arr.reduce((a, c) => a + c.length, 0);
+        },
         at(i) {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
@@ -36,16 +33,13 @@ function chainArrays(...arr) {
 }
 
 /**
- * Logically concatenates arrays (chains them), into a reversed iterable,
- * extended for the total "length" and "at" accessor from reversed index.
- *
- * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then re-chain the array list.
+ * Logically concatenates arrays (chains them), into a reversed iterable.
  */
 function chainArraysReverse(...arr) {
-    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        length,
+        getLength() {
+            return arr.reduce((a, c) => a + c.length, 0);
+        },
         at(i) {
             for (let j = arr.length - 1; j >= 0; j--) {
                 if (i < arr[j].length) {

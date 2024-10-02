@@ -1,11 +1,11 @@
 /**
- * Iterable arrays chain, extended for "length" and "at" accessor.
+ * Iterable arrays chain, extended for "getLength" and "at" accessor.
  */
 export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
     /**
-     * Total length of all input arrays combined.
+     * Calculates total length of all input arrays combined.
      */
-    readonly length: number;
+    getLength(): number;
 }
 
 export function chainArrays(): IArraysChain<unknown>;
@@ -21,16 +21,13 @@ export function chainArrays<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: Array
 export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into an iterable,
- * extended for the total "length" and "at" accessor from index.
- *
- * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then re-chain the array list.
+ * Logically concatenates arrays (chains them), into an iterable.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        length,
+        getLength() {
+            return arr.reduce((a, c) => a + c.length, 0);
+        },
         at(i: number): T | undefined {
             for (let j = 0; j < arr.length; j++) {
                 if (i < arr[j].length) {
@@ -70,16 +67,13 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b
 export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into a reversed iterable,
- * extended for the total "length" and "at" accessor from reversed index.
- *
- * NOTE: "length" value is cached, so if a source array changes length,
- * and you're explicitly using "length", then re-chain the array list.
+ * Logically concatenates arrays (chains them), into a reversed iterable.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
-    const length = arr.reduce((a, c) => a + c.length, 0);
     return {
-        length,
+        getLength() {
+            return arr.reduce((a, c) => a + c.length, 0);
+        },
         at(i: number): T | undefined {
             for (let j = arr.length - 1; j >= 0; j--) {
                 if (i < arr[j].length) {
