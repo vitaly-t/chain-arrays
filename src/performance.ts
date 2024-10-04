@@ -18,12 +18,12 @@ for (const i of chainArrays(a, b, c, d, e)) {
 console.log(`Iteration: ${Date.now() - start}ms; check-sum: ${checkSum.toLocaleString()}`); //=> ~100ms
 
 checkSum = 0;
-const chain = chainArrays(a, b, c, d, e);
-const length = chain.getLength();
+const {at, getLength} = chainArrays(a, b, c, d, e);
+const length = getLength();
 start = Date.now();
 
 for (let i = 0; i < length; i++) {
-    checkSum += chain.at(i)!;
+    checkSum += at(i)!;
 }
 
-console.log(`Using "at": ${Date.now() - start}ms; check-sum: ${checkSum.toLocaleString()}`); //=> ~200ms
+console.log(`Using "at": ${Date.now() - start}ms; check-sum: ${checkSum.toLocaleString()}`); //=> ~190ms
