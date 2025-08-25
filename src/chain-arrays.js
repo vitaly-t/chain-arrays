@@ -1,5 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.chainArrays = chainArrays;
+exports.chainArraysReverse = chainArraysReverse;
 /**
- * Logically concatenates arrays (chains them), into an iterable.
+ * Logically concatenates arrays (chains them), into an iterable object.
  */
 function chainArrays(...arr) {
     return {
@@ -31,9 +35,8 @@ function chainArrays(...arr) {
         }
     };
 }
-
 /**
- * Logically concatenates arrays (chains them), into a reversed iterable.
+ * Logically concatenates arrays (chains them) into a reversed iterable object.
  */
 function chainArraysReverse(...arr) {
     return {

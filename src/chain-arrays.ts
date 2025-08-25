@@ -1,11 +1,16 @@
 /**
  * Iterable arrays chain, extended for "getLength" and "at" accessor.
  */
-export interface IArraysChain<T> extends RelativeIndexable<T>, Iterable<T> {
+export interface IArraysChain<T> extends Iterable<T> {
     /**
-     * Calculates total length of all input arrays combined.
+     * Calculates the total length of all input arrays combined.
      */
     getLength(): number;
+
+    /**
+     * Gets an element from an index.
+     */
+    at(i: number): T | undefined;
 }
 
 export function chainArrays(): IArraysChain<unknown>;
@@ -21,7 +26,7 @@ export function chainArrays<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b: Array
 export function chainArrays<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into an iterable.
+ * Logically concatenates arrays (chains them), into an iterable object.
  */
 export function chainArrays<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     return {
@@ -67,7 +72,7 @@ export function chainArraysReverse<A, B, C, D, E, F, G, H, I>(a: ArrayLike<A>, b
 export function chainArraysReverse<A, B, C, D, E, F, G, H, I, J>(a: ArrayLike<A>, b: ArrayLike<B>, c: ArrayLike<C>, d: ArrayLike<D>, e: ArrayLike<E>, f: ArrayLike<F>, g: ArrayLike<G>, h: ArrayLike<H>, i: ArrayLike<I>, j: ArrayLike<J>): IArraysChain<A | B | C | D | E | F | G | H | I | J>;
 
 /**
- * Logically concatenates arrays (chains them), into a reversed iterable.
+ * Logically concatenates arrays (chains them) into a reversed iterable object.
  */
 export function chainArraysReverse<T>(...arr: Array<ArrayLike<T>>): IArraysChain<T> {
     return {
